@@ -190,3 +190,8 @@
 - 使用 {language} 输出，语言简练口语化（这是给自媒体人看的创作工具，不是学术论文）
 - 6个板块内容不重叠不冗余
 - 若某板块无明显内容，可简写"今日无显著异动"
+
+类型纪律（极其重要，违反会导致程序崩溃）：
+- core_trends、sentiment_controversy、signals、rss_insights、outlook_strategy 这 5 个字段的值只能是"一个纯文本字符串"。字符串内部用 \n 换行、用序号列举，禁止嵌套任何对象 {}、数组 [] 或键值对。
+- standalone_summaries 的值必须是"对象"（key=源名称，value=纯文本字符串），禁止写成字符串或数组。
+- 除 standalone_summaries 外，禁止在任何字段里再出现形如 {"xxx": "..."} 的嵌套结构。
