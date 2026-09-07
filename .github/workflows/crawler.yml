@@ -198,13 +198,18 @@ jobs:
       - name: Prepare Cloudflare Pages assets
         if: success() && steps.cf_check.outputs.enabled == 'true'
         run: |
-          if [ ! -f index.html ]; then
-            echo "❌ 未找到 index.html，请确认爬虫已生成网页报告"
+          if [ -f output/html/latest/current.html ]; then
+            SRC=output/html/latest/current.html
+          elif [ -f index.html ]; then
+            SRC=index.html
+          else
+            echo "❌ 未找到生成的网页报告"
             exit 1
           fi
           rm -rf cloudflare_dist
           mkdir -p cloudflare_dist
-          cp index.html cloudflare_dist/index.html
+          cp "$SRC" cloudflare_dist/index.html
+          echo "✅ 使用报告文件: $SRC
 
       - name: Deploy to Cloudflare Pages
         if: success() && steps.cf_check.outputs.enabled == 'true'
@@ -213,3 +218,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy cloudflare_dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+
