@@ -415,7 +415,7 @@ ai_analysis:
                                     # 开启 schedule 后此项仍为总开关：false=永远不分析，true=由调度控制
 
   language: "Chinese"               # 分析报告语言（如 "English", "Korean", "法语"）
-  prompt_file: "ai_analysis_prompt.txt"   # 提示词文件（相对于 config 目录）
+  prompt_file: "custom/ai/ai_analysis_prompt_toutiao.txt"   # 提示词文件（相对于 config 目录）
 
   mode: "follow_report"             # AI 分析模式（可独立于 report.mode）
                                     # follow_report = 跟随 report.mode（默认）
