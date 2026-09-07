@@ -198,7 +198,9 @@ jobs:
       - name: Prepare Cloudflare Pages assets
         if: success() && steps.cf_check.outputs.enabled == 'true'
         run: |
-          if [ -f output/html/latest/current.html ]; then
+          if [ -f output/html/latest/daily.html ]; then
+            SRC=output/html/latest/daily.html
+          elif [ -f output/html/latest/current.html ]; then
             SRC=output/html/latest/current.html
           elif [ -f index.html ]; then
             SRC=index.html
