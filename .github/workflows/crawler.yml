@@ -209,7 +209,7 @@ jobs:
           rm -rf cloudflare_dist
           mkdir -p cloudflare_dist
           cp "$SRC" cloudflare_dist/index.html
-          echo "✅ 使用报告文件: $SRC
+          echo "✅ 使用报告文件: $SRC"
 
       - name: Deploy to Cloudflare Pages
         if: success() && steps.cf_check.outputs.enabled == 'true'
