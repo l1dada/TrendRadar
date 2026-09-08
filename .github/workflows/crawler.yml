@@ -211,7 +211,11 @@ jobs:
           rm -rf cloudflare_dist
           mkdir -p cloudflare_dist
           cp "$SRC" cloudflare_dist/index.html
-          echo "✅ 使用报告文件: $SRC"
+          # 禁用浏览器缓存：任何设备普通打开都拿到最新版
+          printf '/*\n  Cache-Control: no-store, must-revalidate\n  Pragma: no-cache\n' > cloudflare_dist/_headers
+          # 每 30 分钟自动刷新一次页面（监控页特性）
+          sed -i '0,/<head>/s//<head>\n    <meta http-equiv="refresh" content="1800">/' cloudflare_dist/index.html
+          echo "✅ 使用报告文件: $SRC（已加 no-store 缓存头 + 30分钟自动刷新）"
 
       - name: Deploy to Cloudflare Pages
         if: success() && steps.cf_check.outputs.enabled == 'true'
